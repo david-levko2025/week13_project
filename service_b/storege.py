@@ -25,8 +25,7 @@ class DBConnection(SingletonClass):
 
 class DBCrud:
     _connection = DBConnection.get_connection()
-    list_all_data = []
-
+    
     @staticmethod
     def add_data(data: IPData) -> bool:    # type: ignore
         "add the data to redis db return bool response"
@@ -41,6 +40,7 @@ class DBCrud:
     @staticmethod
     def get_data() -> list:  # type: ignore
         "get all data from db "
+        list_all_data: list = []
         conn = DBCrud._connection
         if DBCrud._connection:
             try:
@@ -48,7 +48,7 @@ class DBCrud:
                 if isinstance(data, list):
                     for k in data:
                         data_dict = conn.get(k)
-                        DBCrud.list_all_data.append(data_dict)
-                        return DBCrud.list_all_data
+                        list_all_data.append({k : data_dict})
+                    return list_all_data
             except:
                 print("Error: can't get the data to db")
