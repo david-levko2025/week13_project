@@ -7,7 +7,5 @@ class IPAddress(BaseModel):
 
 class CleanGeoData(BaseModel):
     ip: str
-    lat: float | None = None
-    lon: float | None = None
-    country: str | None = None
-    city: str | None = None
+    lat: float
+    lon: float
