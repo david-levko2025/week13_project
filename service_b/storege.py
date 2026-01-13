@@ -1,4 +1,5 @@
 import redis 
+from schema import IPData
 
 
 class SingletonClass(object):
