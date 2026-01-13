@@ -15,4 +15,3 @@ class GeoIPService:
             lat=data.get("lat"),
             lon=data.get("lon")
         )
-
