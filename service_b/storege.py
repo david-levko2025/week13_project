@@ -25,6 +25,7 @@ class DBConnection(SingletonClass):
 
 class DBCrud:
     _connection = DBConnection.get_connection()
+    list_all_data = []
 
     @staticmethod
     def add_data(data: IPData) -> bool:    # type: ignore
@@ -37,15 +38,17 @@ class DBCrud:
                 return True 
             except:
                 return False
-
-
-
     @staticmethod
-    def get_data():
+    def get_data() -> list:  # type: ignore
         "get all data from db "
+        conn = DBCrud._connection
         if DBCrud._connection:
             try:
-                data = DBCrud._connection.hgetall("data")
-                return data
+                data = conn.keys()
+                if isinstance(data, list):
+                    for k in data:
+                        data_dict = conn.get(k)
+                        DBCrud.list_all_data.append(data_dict)
+                        return DBCrud.list_all_data
             except:
-                print("Error: can't add the data to db")
+                print("Error: can't get the data to db")
