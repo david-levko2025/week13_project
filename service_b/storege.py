@@ -27,7 +27,7 @@ class DBCrud:
     _connection = DBConnection.get_connection()
 
     @staticmethod
-    def add_data() -> bool | None:
+    def add_data(data: IPData) -> bool | None:
         "add the data to redis db return bool response"
         if DBCrud._connection:
             try:
