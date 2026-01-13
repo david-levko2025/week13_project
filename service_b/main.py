@@ -1,2 +1,4 @@
-from fastapi import FastAPI 
+from fastapi import APIRouter 
+import uvicorn 
 
+app = APIRouter() 
