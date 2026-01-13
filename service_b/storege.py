@@ -8,16 +8,17 @@ class SingletonClass(object):
   
 
 class DBConnection(SingletonClass):
+    _connection = None 
     @staticmethod
     def get_connection():
         connection = redis.Redis(host='localhost', port=6379, decode_responses=True)
         # change it to env variables
         return connection
 
-
-    # def close_connection(self):
-    #     if self.connection and self.connection.is_connected():
-    #         self.connection.close() 
+    @staticmethod
+    def close_connection():
+        if DBConnection._connection:
+            DBConnection._connection.close() 
 
 
 class DBCrud:
@@ -28,7 +29,7 @@ class DBCrud:
         "add the data to redis db return bool response"
         if DBCrud._connection:
             try:
-                DBCrud._connection.hset("data", mapping={**data})
+                DBCrud._connection.set()
                 return True 
             except:
                 return False
