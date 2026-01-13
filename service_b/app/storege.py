@@ -1,5 +1,6 @@
 import redis 
 from schema import IPData
+from core.config import setting
 
 
 class SingletonClass(object):
@@ -11,10 +12,12 @@ class SingletonClass(object):
 
 class DBConnection(SingletonClass):
     _connection = None 
+
     @staticmethod
     def get_connection():
-        connection = redis.Redis(host='localhost', port=6379, decode_responses=True)
-        # change it to env variables
+        host=setting.REDIS_HOST
+        port=setting.REDIS_PORT
+        connection = redis.Redis(host=host, port=port, decode_responses=True)
         return connection
 
     @staticmethod

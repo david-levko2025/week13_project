@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     REDIS_USER : str
-    REDIS_PORT : str
+    REDIS_PORT : int
     REDIS_PASSWORD : str
     REDIS_HOST : str
 
@@ -10,4 +10,4 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_prefix="")
 
-setting = Settings()
+setting = Settings() # type: ignore

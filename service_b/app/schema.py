@@ -5,3 +5,4 @@ class IPData(BaseModel):
     lat: str 
     lon: str 
 
+

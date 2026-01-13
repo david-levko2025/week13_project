@@ -15,5 +15,3 @@ def lookup_ip(data: IPAddress):
     except Exception:
         raise HTTPException(status_code=500, detail="ip look failed")
     
-
-# @router.get("/")
