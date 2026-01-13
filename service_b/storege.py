@@ -1,5 +1,6 @@
 import redis 
 
+
 class SingletonClass(object):
   def __new__(cls):
     if not hasattr(cls, 'instance'):
@@ -25,7 +26,7 @@ class DBCrud:
     _connection = DBConnection.get_connection()
 
     @staticmethod
-    def add_data(data: dict) -> bool | None:
+    def add_data() -> bool | None:
         "add the data to redis db return bool response"
         if DBCrud._connection:
             try:
