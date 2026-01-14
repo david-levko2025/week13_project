@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: service-b
-        image: <docker-hub-name>/service_b:1.1
+        image: meirgerby/service_b:1.1
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
