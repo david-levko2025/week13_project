@@ -11,7 +11,6 @@ geo_service = GeoIPService()
 @router.post("/lookup", response_model=CleanData)
 def lookup_ip(data: IPAddress):
     try:
-        data = geo_service.lookup(str(data.ip))
-        return "the check work successfuly"
+        return geo_service.lookup(str(data.ip))
     except Exception:
         raise HTTPException(status_code=500, detail="ip look failed")

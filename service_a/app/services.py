@@ -21,7 +21,7 @@ class SendData:
     host = "localhost"
     port = 8080
 
-    def send_to_service_b():
+    def send_to_service_b(self):
         try:
             requests.post(host = SendData.host,port = SendData.port)
             return True
