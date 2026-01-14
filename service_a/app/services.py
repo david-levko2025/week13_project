@@ -1,10 +1,10 @@
 import requests
 from schemas import CleanData
-
+import os 
+from dotenv import load_dotenv 
 
 class GeoIPService:
     GEO_API_URL = "http://ip-api.com/json/"
-    
 
     def lookup(self, ip: str) -> CleanData:
         response = requests.get(f"{self.GEO_API_URL}{ip}")
@@ -19,11 +19,10 @@ class GeoIPService:
 
 class SendData:
     host = "localhost"
-    port = 8080
 
     def send_to_service_b(self):
         try:
-            requests.post(host = SendData.host,port = SendData.port)
+            requests.post(SendData.host)
             return True
         except:
             return False

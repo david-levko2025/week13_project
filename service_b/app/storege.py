@@ -1,6 +1,7 @@
 import redis 
 from schema import IPData
-
+import os 
+from dotenv import load_dotenv 
 
 class SingletonClass(object):
   def __new__(cls):
@@ -11,10 +12,13 @@ class SingletonClass(object):
 
 class DBConnection(SingletonClass):
     _connection = None 
+
     @staticmethod
     def get_connection():
-        connection = redis.Redis(host='localhost', port=6379, decode_responses=True)
-        # change it to env variables
+        load_dotenv()
+        host=os.getenv("REDIS_HOST")
+        port=os.getenv("REDIS_PORT")
+        connection = redis.Redis(host=host, port=port, decode_responses=True)
         return connection
 
     @staticmethod

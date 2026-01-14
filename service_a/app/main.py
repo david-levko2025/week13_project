@@ -1,8 +1,6 @@
-from fastapi import APIRouter, FastAPI
+from fastapi import FastAPI
 import uvicorn
 import routes
-
-
 
 app = FastAPI()
 
