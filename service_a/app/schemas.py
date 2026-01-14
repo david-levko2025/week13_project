@@ -5,7 +5,6 @@ class IPAddress(BaseModel):
     ip : IPvAnyAddress
 
 
-class CleanData(BaseModel):
-    ip: str
+class CleanData(IPAddress):
     lat: float
     lon: float
