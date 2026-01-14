@@ -18,11 +18,12 @@ class GeoIPService:
         )
 
 class SendData:
-    host = "localhost"
+    host = "localhost:8000"
 
-    def send_to_service_b(self):
+    @staticmethod
+    def send_to_service_b(data):
         try:
-            requests.post(SendData.host)
+            requests.post(SendData.host, data)
             return True
         except:
             return False
