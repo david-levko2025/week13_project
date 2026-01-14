@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-b
+  labels:
+    app: service-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-b
+  template:
+    metadata:
+      labels:
+        app: service-b
+    spec:
+      containers:
+      - name: service-b
+        image: <docker-hub-name>/service_b:1.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+        env:
+        - name: REDIS_HOST
+          value: "redis-0.redis"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_DB
+          value: "0"
+        - name: LOG_LEVEL
+          value: "INFO"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:  #  to handle situations where your application is running but not functional
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10   # wait 10 seconds before the first probe
+          periodSeconds: 30   # check every 30 seconds thereafter
+          timeoutSeconds: 5   # The probe must return a response within 5 seconds
+          failureThreshold: 3   # Restart container after 3 consecutive failures
+        readinessProbe:  # we use when your application needs time to warm up before it can handle requests or when an external dependency (like a database) is temporarily down
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5    # wait 5 seconds before the first probe
+          periodSeconds: 10    # check every 10 seconds thereafter  
+          timeoutSeconds: 3    # The probe must return a response within 3 seconds
+          failureThreshold: 3    # Restart container after 3 consecutive failures
